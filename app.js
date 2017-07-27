@@ -1,7 +1,6 @@
 const { AuthAPIClient, DataAPIClient } = require("truelayer-client");
 const app = require("express")();
 const envalid = require("envalid");
-const parser = require("body-parser");
 
 // Get environment variables
 const env = envalid.cleanEnv(process.env, {
@@ -10,21 +9,21 @@ const env = envalid.cleanEnv(process.env, {
     REDIRECT_URI: envalid.url({ default: "http://localhost:5000/truelayer-redirect" })
 });
 
-// Create TrueLayer auth client instance - automatically picks up env vars
+// Create auth client instance - automatically picks up env vars
 const authClient = new AuthAPIClient();
 
-// Redirect to the auth dialog
+// Define array of permission scopes
+const scopes = ["info", "accounts", "balance", "transactions", "offline_access"]
+
+// Construct url and redirect to the auth dialog
 app.get("/", (req, res) => {
-    const authURL = authClient.getAuthUrl(env.REDIRECT_URI, ["info"], "nonce", "form_post", "state", true);
+    const authURL = authClient.getAuthUrl(env.REDIRECT_URI, scopes, "foobar");
     res.redirect(authURL);
 });
 
-// Express body parser setup
-app.use(parser.urlencoded({ extended: true }));
-
-// Receiving post request
-app.post("/truelayer-redirect", async (req, res) => {
-    const code = req.body.code;
+// Get 'code' querystring parameter and hit data api
+app.get("/truelayer-redirect", async (req, res) => {
+    const code = req.query.code;
     const tokens = await authClient.exchangeCodeForToken(env.REDIRECT_URI, code);
 
     // Hit info endpoint for identity data
@@ -34,6 +33,4 @@ app.post("/truelayer-redirect", async (req, res) => {
     res.send("Info: " + JSON.stringify(info, null, 2));
 });
 
-app.listen(5000, () => {
-    console.log("Example app listening on port 5000...");
-});
+app.listen(5000, () => console.log("Example app listening on port 5000..."));
