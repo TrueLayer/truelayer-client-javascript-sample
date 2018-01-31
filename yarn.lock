@@ -591,9 +591,9 @@ tough-cookie@>=2.3.0, tough-cookie@~2.3.0:
   dependencies:
     punycode "^1.4.1"
 
-"truelayer-client@^1.0.1":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/truelayer-client/-/truelayer-client-1.0.2.tgz#72bfc8590f7093841e32fc21546dabe7bd404ad9"
+"truelayer-client@^1.0.9":
+  version "1.0.9"
+  resolved "https://truelayer.jfrog.io/truelayer/api/npm/npm/truelayer-client/-/truelayer-client-1.0.9.tgz#41ffddf1a0d22167c09ebe1e2b9a88bd940e1cdf"
   dependencies:
     jwt-decode "^2.2.0"
     moment "^2.18.1"

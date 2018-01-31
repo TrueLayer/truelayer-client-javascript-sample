@@ -9,7 +9,7 @@
     "body-parser": "^1.17.2",
     "envalid": "^3.0.0",
     "express": "^4.15.3",
-    "truelayer-client": "^1.0.1"
+    "truelayer-client": "^1.0.9"
   },
   "scripts": {
     "start": "node app.js"
