@@ -17,7 +17,7 @@ const scopes = ["info", "accounts", "balance", "transactions", "offline_access"]
 
 // Construct url and redirect to the auth dialog
 app.get("/", (req, res) => {
-    const authURL = authClient.getAuthUrl(env.REDIRECT_URI, scopes, "foobar");
+    const authURL = authClient.getAuthUrl(env.REDIRECT_URI, scopes, "foobar", "", "", true);
     res.redirect(authURL);
 });
 
