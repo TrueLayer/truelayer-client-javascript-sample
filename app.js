@@ -2,6 +2,8 @@ const { AuthAPIClient, DataAPIClient } = require("truelayer-client");
 const app = require("express")();
 const envalid = require("envalid");
 
+require('dotenv').config();
+
 // Get environment variables
 const env = envalid.cleanEnv(process.env, {
     CLIENT_ID: envalid.str(),
